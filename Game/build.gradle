@@ -1,0 +1,29 @@
+apply plugin: "java"
+
+dependencies
+{
+	testCompile "junit:junit:4.11"
+}
+
+// set source Classpath
+sourceSets
+{
+	main.java.srcDir("src/")
+	test.java.srcDir("src/")
+}
+
+//Define Main Class
+jar {
+	manifest.attributes "Main-Class": "Main"
+}
+
+//run jar File
+task run(type: Exec, dependsOn: jar){
+	executable 'java'
+	args '-jar', "$jar.archivePath"
+	
+}
+
+task myJavadoc(type: Javadoc){
+	source = sourceSets.main.allJava
+}
